@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ankita.aiinterview.dto.LoginRequest;
 import com.ankita.aiinterview.dto.RegisterRequest;
 import com.ankita.aiinterview.entity.User;
 import com.ankita.aiinterview.service.UserService;
@@ -23,5 +24,11 @@ public class UserController {
     public User registerUser(@Valid @RequestBody RegisterRequest request) {
 
         return userService.registerUser(request);
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestBody LoginRequest request) {
+
+        return userService.loginUser(request);
     }
 }
