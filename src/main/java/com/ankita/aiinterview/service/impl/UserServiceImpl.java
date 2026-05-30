@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ankita.aiinterview.dto.LoginRequest;
 import com.ankita.aiinterview.dto.RegisterRequest;
+import com.ankita.aiinterview.entity.Role;
 import com.ankita.aiinterview.entity.User;
 import com.ankita.aiinterview.repository.UserRepository;
 import com.ankita.aiinterview.service.UserService;
@@ -31,10 +32,12 @@ public class UserServiceImpl implements UserService {
 
         user.setName(request.getName());
         user.setEmail(request.getEmail());
+        user.setRole(Role.USER);
 
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return userRepository.save(user);
+        
     }
 
     @Override

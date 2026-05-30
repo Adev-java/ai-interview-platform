@@ -14,6 +14,8 @@ import com.ankita.aiinterview.service.UserService;
 
 import jakarta.validation.Valid;
 
+
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -36,5 +38,15 @@ public class UserController {
 public String profile() {
 
     return "Protected Profile API Accessed";
+}
+@GetMapping("/admin")
+public String adminPanel() {
+
+    return "Welcome Admin";
+}
+@GetMapping("/dashboard")
+public String dashboard() {
+
+    return "Welcome User";
 }
 }
