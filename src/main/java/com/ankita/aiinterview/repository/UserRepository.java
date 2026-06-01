@@ -10,4 +10,5 @@ import com.ankita.aiinterview.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
+
 }

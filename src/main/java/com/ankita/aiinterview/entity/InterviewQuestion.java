@@ -16,6 +16,8 @@ public class InterviewQuestion {
 
     private String question;
 
+    private String difficulty;
+    
     public Long getId() {
         return id;
     }
@@ -34,5 +36,13 @@ public class InterviewQuestion {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 }
