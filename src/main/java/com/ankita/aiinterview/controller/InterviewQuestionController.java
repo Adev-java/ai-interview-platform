@@ -12,67 +12,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ankita.aiinterview.entity.InterviewQuestion;
-import com.ankita.aiinterview.repository.InterviewQuestionRepository;
+import com.ankita.aiinterview.service.InterviewQuestionService;
 
 @RestController
 @RequestMapping("/api/questions")
 public class InterviewQuestionController {
 
-    private final InterviewQuestionRepository repository;
+private final InterviewQuestionService service;
+  public InterviewQuestionController(
+        InterviewQuestionService service) {
 
-    public InterviewQuestionController(
-            InterviewQuestionRepository repository) {
-
-        this.repository = repository;
-    }
-
+    this.service = service;
+}
     @PostMapping
     public InterviewQuestion saveQuestion(
             @RequestBody InterviewQuestion question) {
 
-        return repository.save(question);
+        return service.saveQuestion(question);
     }
 
     @GetMapping
     public List<InterviewQuestion> getAllQuestions() {
 
-        return repository.findAll();
+        return service.getAllQuestions();
     }
 
     @PutMapping("/{id}")
 public InterviewQuestion updateQuestion(
         @PathVariable Long id,
         @RequestBody InterviewQuestion updatedQuestion) {
+return service.updateQuestion(id,
+                              updatedQuestion);
 
-    InterviewQuestion question =
-            repository.findById(id)
-                    .orElseThrow(() ->
-                            new RuntimeException("Question not found"));
-
-    question.setCategory(updatedQuestion.getCategory());
-    question.setQuestion(updatedQuestion.getQuestion());
-
-    return repository.save(question);
-}
+        }
 
 
 @DeleteMapping("/{id}")
 public String deleteQuestion(@PathVariable Long id) {
 
-    repository.deleteById(id);
+service.deleteQuestion(id);
 
-    return "Question Deleted Successfully";
+return "Question Deleted Successfully";
+
 }
 @GetMapping("/category/{category}")
 public List<InterviewQuestion> getByCategory(
         @PathVariable String category) {
-
-    return repository.findByCategory(category);
+return service.getByCategory(category);
 }
 @GetMapping("/difficulty/{difficulty}")
 public List<InterviewQuestion> getByDifficulty(
         @PathVariable String difficulty) {
 
-    return repository.findByDifficulty(difficulty);
+    return service.getByDifficulty(difficulty);
 }
 }
