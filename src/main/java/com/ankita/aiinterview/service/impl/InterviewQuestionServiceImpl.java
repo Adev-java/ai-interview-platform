@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ankita.aiinterview.dto.QuestionRequest;
 import com.ankita.aiinterview.entity.InterviewQuestion;
+import com.ankita.aiinterview.exception.QuestionNotFoundException;
 import com.ankita.aiinterview.repository.InterviewQuestionRepository;
 import com.ankita.aiinterview.service.InterviewQuestionService;
-
 @Service
 public class InterviewQuestionServiceImpl
         implements InterviewQuestionService {
@@ -21,12 +22,23 @@ public class InterviewQuestionServiceImpl
     }
 
     @Override
-    public InterviewQuestion saveQuestion(
-            InterviewQuestion question) {
+public InterviewQuestion saveQuestion(
+        QuestionRequest request) {
 
-        return repository.save(question);
-    }
+    InterviewQuestion question =
+            new InterviewQuestion();
 
+    question.setCategory(
+            request.getCategory());
+
+    question.setQuestion(
+            request.getQuestion());
+
+    question.setDifficulty(
+            request.getDifficulty());
+
+    return repository.save(question);
+}
     @Override
     public List<InterviewQuestion> getAllQuestions() {
 
@@ -41,8 +53,8 @@ public class InterviewQuestionServiceImpl
         InterviewQuestion question =
                 repository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Question not found"));
+        new QuestionNotFoundException(
+                "Question not found"));
 
         question.setCategory(
                 updatedQuestion.getCategory());

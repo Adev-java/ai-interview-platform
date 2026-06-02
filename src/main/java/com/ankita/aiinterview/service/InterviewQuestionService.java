@@ -2,11 +2,11 @@ package com.ankita.aiinterview.service;
 
 import java.util.List;
 
+import com.ankita.aiinterview.dto.QuestionRequest;
 import com.ankita.aiinterview.entity.InterviewQuestion;
-
 public interface InterviewQuestionService {
 
-    InterviewQuestion saveQuestion(InterviewQuestion question);
+    InterviewQuestion saveQuestion(QuestionRequest question);
 
     List<InterviewQuestion> getAllQuestions();
 
@@ -18,4 +18,6 @@ public interface InterviewQuestionService {
     List<InterviewQuestion> getByCategory(String category);
 
     List<InterviewQuestion> getByDifficulty(String difficulty);
+
+ 
 }

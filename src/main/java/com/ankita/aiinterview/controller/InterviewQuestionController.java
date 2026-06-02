@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ankita.aiinterview.dto.QuestionRequest;
 import com.ankita.aiinterview.entity.InterviewQuestion;
 import com.ankita.aiinterview.service.InterviewQuestionService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -24,13 +27,12 @@ private final InterviewQuestionService service;
 
     this.service = service;
 }
-    @PostMapping
-    public InterviewQuestion saveQuestion(
-            @RequestBody InterviewQuestion question) {
+   @PostMapping
+public InterviewQuestion saveQuestion(
+        @Valid @RequestBody QuestionRequest request) {
 
-        return service.saveQuestion(question);
-    }
-
+    return service.saveQuestion(request);
+}
     @GetMapping
     public List<InterviewQuestion> getAllQuestions() {
 
