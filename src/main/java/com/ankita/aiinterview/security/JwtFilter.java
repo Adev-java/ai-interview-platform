@@ -19,30 +19,46 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException {
+   @Override
+protected void doFilterInternal(HttpServletRequest request,
+                                HttpServletResponse response,
+                                FilterChain filterChain)
+        throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+    String path = request.getServletPath();
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-
-            String token = authHeader.substring(7);
-
-            boolean isValid = jwtUtil.validateToken(token);
-
-            if (!isValid) {
-
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
-                response.getWriter().write("Invalid JWT Token");
-
-                return;
-            }
-        }
+    // Swagger endpoints skip
+    if (path.startsWith("/swagger-ui")
+            || path.startsWith("/v3/api-docs")) {
 
         filterChain.doFilter(request, response);
+        return;
     }
+        
+    String authHeader = request.getHeader("Authorization");
+
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+
+        String token = authHeader.substring(7);
+
+        boolean isValid = jwtUtil.validateToken(token);
+
+        if (!isValid) {
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid JWT Token");
+            return;
+        }
+    }
+
+      filterChain.doFilter(request, response);
+        
+if (path.startsWith("/swagger-ui")
+        || path.startsWith("/v3/api-docs")) {
+
+    filterChain.doFilter(request, response);
 }
+}}
+
+   
+
