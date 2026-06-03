@@ -9,4 +9,5 @@ public interface UserService {
     User registerUser(RegisterRequest request);
 
     String loginUser(LoginRequest request);
+
 }
