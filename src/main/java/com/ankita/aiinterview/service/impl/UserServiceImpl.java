@@ -1,7 +1,7 @@
 
 package com.ankita.aiinterview.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +16,12 @@ import com.ankita.aiinterview.util.JwtUtil;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository = null;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = null;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+  private final JwtUtil jwtUtil = null;
+
 
     @Override
     public User registerUser(RegisterRequest request) {

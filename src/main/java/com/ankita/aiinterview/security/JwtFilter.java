@@ -2,7 +2,6 @@ package com.ankita.aiinterview.security;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,8 +15,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
+    @SuppressWarnings("unused")
+   JwtFilter(JwtUtil jwtUtil) {
+      this.jwtUtil = jwtUtil;
+   }
 
    @Override
 protected void doFilterInternal(HttpServletRequest request,
